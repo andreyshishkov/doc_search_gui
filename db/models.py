@@ -2,7 +2,7 @@ from sqlalchemy import Column, String, Boolean
 from .db_core import Base
 
 
-class Documents(Base):
+class Document(Base):
 
     __tablename__ = 'documents'
     name = Column(String, index=True, primary_key=True)
