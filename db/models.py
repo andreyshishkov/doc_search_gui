@@ -1,11 +1,12 @@
-from sqlalchemy import Column, String, Boolean
+from sqlalchemy import Column, String, Boolean, Integer
 from .db_core import Base
 
 
 class Document(Base):
 
     __tablename__ = 'documents'
-    name = Column(String, index=True, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement='auto')
+    name = Column(String, index=True)
     is_income = Column(Boolean)
     path = Column(String, unique=True)
 
