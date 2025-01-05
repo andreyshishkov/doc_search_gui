@@ -25,11 +25,11 @@ class StartWindow(tk.Tk):
         self.mainloop()
 
     def _create_buttons(self):
-        self._create_incoming_button()
-        self._create_outgoing_button()
+        self._create_add_doc_button()
+        self._create_find_doc_button()
 
-    def _create_incoming_button(self):
-        button_name: str = 'Входящие'
+    def _create_add_doc_button(self):
+        button_name: str = 'Добавить документ'
         self._incoming_btn = tk.Button(
             text=button_name,
             width=self._buttons_width,
@@ -38,8 +38,8 @@ class StartWindow(tk.Tk):
         )
         self._incoming_btn.pack(side=tk.LEFT, padx=40)
 
-    def _create_outgoing_button(self):
-        button_name: str = 'Исходящие'
+    def _create_find_doc_button(self):
+        button_name: str = 'Найти документ'
         self._outgoing_button = tk.Button(
             text=button_name,
             width=self._buttons_width,
