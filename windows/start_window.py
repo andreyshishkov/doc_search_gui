@@ -1,4 +1,5 @@
 import tkinter as tk
+from .add_document_window import AddDocWindow
 
 
 class StartWindow(tk.Tk):
@@ -14,6 +15,7 @@ class StartWindow(tk.Tk):
         self.resizable(width=False, height=False)
         self.config(bg='green')
         self.title(program_name)
+        self.iconbitmap(default='icon.ico')
 
         self._buttons_width: int = 30
         self._buttons_height: int = 5
@@ -35,6 +37,7 @@ class StartWindow(tk.Tk):
             width=self._buttons_width,
             height=self._buttons_height,
             font=self._buttons_font,
+            command=self._call_add_doc_window,
         )
         self._incoming_btn.pack(side=tk.LEFT, padx=40)
 
@@ -47,5 +50,10 @@ class StartWindow(tk.Tk):
             font=self._buttons_font,
         )
         self._outgoing_button.pack(side=tk.RIGHT, padx=40)
+
+    @staticmethod
+    def _call_add_doc_window():
+        window = AddDocWindow()
+        window.grab_focus()
         
     
