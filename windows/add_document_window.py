@@ -63,18 +63,10 @@ class AddDocWindow(tk.Tk):
                 self._input_filename.config(fg='black')
                 self.default_text = False
 
-        def handle_focus_out(_):
-            # self._input_filename.delete(0, tk.END)
-            # self._input_filename.config(fg='grey')
-            # self._input_filename.insert(0, 'Введите название документа')
-            self._input_filename.insert(0, self._input_filename.get())
-
         self._input_filename.insert(0, 'Введите название документа')
         self._input_filename.config(fg='grey')
 
         self._input_filename.bind("<FocusIn>", handle_focus_in)
-        #self._input_filename.bind("<FocusOut>", handle_focus_out)
-        #self._input_filename.bind("<Return>", handle_enter)
         self._input_filename.pack(anchor='n', pady=15)
 
     def create_document_type_radiobuttons(self):
