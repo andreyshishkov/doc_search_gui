@@ -51,9 +51,7 @@ class StartWindow(tk.Tk):
         )
         self._outgoing_button.pack(side=tk.RIGHT, padx=40)
 
-    @staticmethod
-    def _call_add_doc_window():
+    def _call_add_doc_window(self):
         window = AddDocWindow()
-        window.grab_focus()
-        
-    
+        self.destroy()
+        window.mainloop()
