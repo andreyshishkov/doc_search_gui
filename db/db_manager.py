@@ -5,7 +5,8 @@ from sqlalchemy.orm import sessionmaker
 from .models import Document
 from .db_core import Base
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR = os.path.abspath(os.getcwd())
+print(BASE_DIR)
 DATABASE = os.path.join('sqlite:///' + BASE_DIR, 'documents.db')
 
 
