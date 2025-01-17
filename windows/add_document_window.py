@@ -1,5 +1,6 @@
 import os
 import tkinter as tk
+import tkcalendar
 import tkinter.filedialog as fd
 import shutil
 from tkinter import messagebox as msgbox
@@ -11,7 +12,7 @@ class AddDocWindow(tk.Tk):
 
     def __init__(self,
                  width: int = 600,
-                 height: int = 300,
+                 height: int = 400,
                  window_name: str = 'Добавить документ',
                  ):
         super().__init__()
@@ -30,6 +31,7 @@ class AddDocWindow(tk.Tk):
         self.file_path = None
         self.default_text = True
         self.frame = tk.Frame(self)
+        self._date_entry = None
 
         self.create_widgets()
 
@@ -43,6 +45,7 @@ class AddDocWindow(tk.Tk):
 
     def create_widgets(self):
         self.create_label_input_filename()
+        self.create_date_field()
         self.create_document_type_radiobuttons()
         self.create_choose_file_button()
         self.create_add_button()
@@ -68,6 +71,25 @@ class AddDocWindow(tk.Tk):
 
         self._input_filename.bind("<FocusIn>", handle_focus_in)
         self._input_filename.pack(anchor='n', pady=15)
+
+    def create_date_field(self):
+        frame = tk.Frame(self, width=47)
+        label = tk.Label(
+            frame,
+            width=33,
+            text='Дата документа:\t'
+        )
+        label.grid(row=0, column=0)
+        self._date_entry = tkcalendar.DateEntry(
+            frame,
+            date_pattern='yyyy-MM-dd',
+            selectmode='day',
+            font='Arial 15'
+        )
+        self._date_entry.grid(row=0, column=1)
+
+        frame.pack()
+
 
     def create_document_type_radiobuttons(self):
         self.is_income = tk.BooleanVar()
