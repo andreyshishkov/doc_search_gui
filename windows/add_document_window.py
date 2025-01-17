@@ -33,6 +33,7 @@ class AddDocWindow(tk.Tk):
         self.frame = tk.Frame(self)
         self._date_entry = None
         self._sender = None
+        self._own_number = None
 
         self.create_widgets()
 
@@ -48,6 +49,7 @@ class AddDocWindow(tk.Tk):
         self.create_label_input_filename()
         self.create_date_field()
         self.create_sender_field()
+        self.create_own_number_doc_field()
         self.create_document_type_radiobuttons()
         self.create_choose_file_button()
         self.create_add_button()
@@ -111,6 +113,25 @@ class AddDocWindow(tk.Tk):
         self._sender.grid(row=0, column=1)
 
         frame.pack(pady=6)
+
+    def create_own_number_doc_field(self):
+        frame = tk.Frame(self, width=47)
+
+        label = tk.Label(
+            frame,
+            anchor='w',
+            width=27,
+            text='За каким номером учтен:\t'
+        )
+        label.grid(row=0, column=0)
+        self._own_number = tk.Entry(
+            frame,
+            width=20,
+            font='Arial 15'
+        )
+        self._own_number.grid(row=0, column=1)
+
+        frame.pack()
 
     def create_document_type_radiobuttons(self):
         self.is_income = tk.BooleanVar()
