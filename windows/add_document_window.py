@@ -204,13 +204,18 @@ class AddDocWindow(tk.Tk):
 
         db_manager = DBManager()
 
-
         target_path_to_save = self.get_target_filename(document_name)
+        sender = self._sender.get()
+        date = self._date_entry.get_date()
+        own_number = self._own_number.get()
         self.copy_file(document_name)
         db_manager.add_document(
             name=document_name,
             path=target_path_to_save,
             is_income=self.is_income.get(),
+            date=date,
+            sender=sender,
+            own_number=own_number,
         )
         msgbox.showinfo(
             'Операция завершена успешно',
