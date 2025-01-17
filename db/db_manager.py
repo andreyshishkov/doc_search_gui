@@ -4,6 +4,7 @@ from sqlalchemy.orm import sessionmaker
 
 from .models import Document
 from .db_core import Base
+import datetime
 
 BASE_DIR = os.path.abspath(os.getcwd())
 DATABASE = os.path.join('sqlite:///' + BASE_DIR, 'documents.db')
@@ -37,11 +38,22 @@ class DBManager(metaclass=Singleton):
     def rollback(self):
         self._session.rollback()
 
-    def add_document(self, name: str, path: str, is_income: bool) -> None:
+    def add_document(
+            self,
+            name: str,
+            path: str,
+            is_income: bool,
+            date: datetime.date,
+            sender: str = None,
+            own_number: str = None,
+    ) -> None:
         document = Document(
             name=name,
             is_income=is_income,
             path=path,
+            sender=sender,
+            date=date,
+            own_number=own_number,
         )
         self._session.add(document)
         self._session.commit()
