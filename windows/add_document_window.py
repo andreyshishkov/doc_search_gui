@@ -32,6 +32,7 @@ class AddDocWindow(tk.Tk):
         self.default_text = True
         self.frame = tk.Frame(self)
         self._date_entry = None
+        self._sender = None
 
         self.create_widgets()
 
@@ -46,6 +47,7 @@ class AddDocWindow(tk.Tk):
     def create_widgets(self):
         self.create_label_input_filename()
         self.create_date_field()
+        self.create_sender_field()
         self.create_document_type_radiobuttons()
         self.create_choose_file_button()
         self.create_add_button()
@@ -77,7 +79,8 @@ class AddDocWindow(tk.Tk):
         label = tk.Label(
             frame,
             width=33,
-            text='Дата документа:\t'
+            text='Дата документа:\t',
+            anchor='w'
         )
         label.grid(row=0, column=0)
         self._date_entry = tkcalendar.DateEntry(
@@ -90,6 +93,24 @@ class AddDocWindow(tk.Tk):
 
         frame.pack()
 
+    def create_sender_field(self):
+        frame = tk.Frame(self, width=47)
+
+        label = tk.Label(
+            frame,
+            anchor='w',
+            width=27,
+            text='От кого документ:\t'
+        )
+        label.grid(row=0, column=0)
+        self._sender = tk.Entry(
+            frame,
+            width=20,
+            font='Arial 15'
+        )
+        self._sender.grid(row=0, column=1)
+
+        frame.pack(pady=6)
 
     def create_document_type_radiobuttons(self):
         self.is_income = tk.BooleanVar()
@@ -211,3 +232,6 @@ class AddDocWindow(tk.Tk):
         window = StartWindow()
         self.destroy()
         window.run()
+
+
+AddDocWindow().mainloop()
