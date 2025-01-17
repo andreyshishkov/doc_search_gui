@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, Boolean, Integer
+from sqlalchemy import Column, String, Boolean, Integer, Date
 from .db_core import Base
 
 
@@ -8,6 +8,12 @@ class Document(Base):
     id = Column(Integer, primary_key=True, autoincrement='auto')
     name = Column(String, index=True)
     is_income = Column(Boolean)
+
+    date = Column(Date)
+
+    sender = Column(String)
+    own_number = Column(String, nullable=True)
+
     path = Column(String, unique=True)
 
     def __str__(self):
