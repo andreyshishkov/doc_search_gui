@@ -1,6 +1,6 @@
 import os
 import tkinter as tk
-import tkcalendar
+from tkcalendar import DateEntry
 import tkinter.filedialog as fd
 import shutil
 from tkinter import messagebox as msgbox
@@ -85,7 +85,7 @@ class AddDocWindow(tk.Tk):
             anchor='w'
         )
         label.grid(row=0, column=0)
-        self._date_entry = tkcalendar.DateEntry(
+        self._date_entry = DateEntry(
             frame,
             date_pattern='yyyy-MM-dd',
             selectmode='day',
@@ -253,6 +253,3 @@ class AddDocWindow(tk.Tk):
         window = StartWindow()
         self.destroy()
         window.run()
-
-
-AddDocWindow().mainloop()
