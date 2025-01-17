@@ -54,4 +54,4 @@ class StartWindow(tk.Tk):
     def _call_add_doc_window(self):
         window = AddDocWindow()
         self.destroy()
-        window.mainloop()
+        window.deiconify()
