@@ -18,7 +18,6 @@ class AddDocWindow(tk.Tk):
         super().__init__()
         self.geometry(f'{width}x{height}')
         self.resizable(width=False, height=False)
-        self.config(bg='gray')
         self.title(window_name)
 
         self.option_add('*Label*Font', 'Arial 15')
