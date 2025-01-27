@@ -14,7 +14,7 @@ class Criteria(Enum):
 class FindDocWindow(tk.Tk):
 
     def __init__(self,
-                 width: int = 600,
+                 width: int = 800,
                  height: int = 400,
                  window_name: str = 'Найти документ',
                  ):
@@ -35,6 +35,7 @@ class FindDocWindow(tk.Tk):
 
     def create_widgets(self):
         self.create_params_frame()
+        self.create_search_results_frame()
 
     def create_params_frame(self):
         label_frame = ttk.LabelFrame(self, text="Выберите критерий поиска и введите значение", padding=20)
@@ -83,6 +84,29 @@ class FindDocWindow(tk.Tk):
     def _create_search_button(self, frame):
         button = ttk.Button(frame, text='Поиск')
         button.grid(row=2, column=2)
+
+    def create_search_results_frame(self):
+        results_frame = ttk.LabelFrame(self, text='Результаты поиска', padding=20)
+        result_tree = ttk.Treeview(
+            results_frame,
+            columns=(1, 2, 3, 4, 5),
+            show='headings',
+            height=10,
+            selectmode='browse'
+        )
+        result_tree.heading(1, text='Номер документа')
+        result_tree.heading(2, text='Дата')
+        result_tree.heading(3, text='Внутренний номер\nдокумента')
+        result_tree.heading(4, text='Отправитель')
+        result_tree.heading(5, text='Путь к файлу')
+
+        result_tree.column(1, width=120, anchor='center')
+        result_tree.column(2, width=120, anchor='center')
+        result_tree.column(3, width=120, anchor='center')
+        result_tree.column(4, width=120, anchor='center')
+
+        result_tree.pack(side=tk.TOP, expand='yes', fill='both')
+        results_frame.pack(expand='yes', fill='both')
 
 if __name__ == '__main__':
     window = FindDocWindow()
