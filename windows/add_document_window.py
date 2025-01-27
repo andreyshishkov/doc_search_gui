@@ -34,6 +34,7 @@ class AddDocWindow(tk.Tk):
         self._date_entry = None
         self._sender = None
         self._own_number = None
+        self.style = ttk.Style(self)
 
         self.create_widgets()
 
@@ -136,24 +137,25 @@ class AddDocWindow(tk.Tk):
     def create_document_type_radiobuttons(self):
         self.is_income = tk.BooleanVar()
         self.is_income.set(True)
+        self.style.configure('TRadiobutton', font=(15,))
 
-        income_button = tk.Radiobutton(
+        income_button = ttk.Radiobutton(
             self.frame,
             text='Входящие',
             variable=self.is_income,
             value=True,
-            width=21,
+            width=10,
         )
-        outcome_button = tk.Radiobutton(
+        outcome_button = ttk.Radiobutton(
             self.frame,
             text='Исходящие',
             variable=self.is_income,
             value=False,
-            width=21,
+            width=10,
         )
 
-        income_button.grid(row=1, column=1)
-        outcome_button.grid(row=1, column=2)
+        income_button.grid(row=1, column=1, padx=40)
+        outcome_button.grid(row=1, column=2, padx=40)
 
         self.frame.pack(pady=20)
 
