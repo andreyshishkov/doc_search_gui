@@ -1,5 +1,6 @@
 import os
 import tkinter as tk
+from tkinter import ttk
 from tkcalendar import DateEntry
 import tkinter.filedialog as fd
 import shutil
@@ -20,9 +21,9 @@ class AddDocWindow(tk.Tk):
         self.resizable(width=False, height=False)
         self.title(window_name)
 
-        self.option_add('*Label*Font', 'Arial 15')
-        self.option_add('*Button*Font', 'Arial 15')
-        self.option_add('*Radiobutton*Font', 'Arial 15')
+        self.option_add('*Label*Font', 'TimesNewRoman 15')
+        self.option_add('*Button*Font', 'TimesNewRoman 15')
+        self.option_add('*Radiobutton*Font', 'TimesNewRoman 15')
 
         self._label_filename = None
         self._input_filename = None
@@ -59,7 +60,7 @@ class AddDocWindow(tk.Tk):
         self._input_filename = tk.Entry(
             self,
             width=47,
-            font='Arial 15',
+            font='TimesNewRoman 15',
         )
         self.default_text = True
 
@@ -107,7 +108,7 @@ class AddDocWindow(tk.Tk):
         self._sender = tk.Entry(
             frame,
             width=20,
-            font='Arial 15'
+            font='TimesNewRoman 15'
         )
         self._sender.grid(row=0, column=1)
 
@@ -126,7 +127,7 @@ class AddDocWindow(tk.Tk):
         self._own_number = tk.Entry(
             frame,
             width=20,
-            font='Arial 15'
+            font='TimesNewRoman 15'
         )
         self._own_number.grid(row=0, column=1)
 
