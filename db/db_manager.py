@@ -53,7 +53,7 @@ class DBManager(metaclass=Singleton):
             path=path,
             sender=sender,
             date=date,
-            own_number=own_number,
+            inner_number=own_number,
         )
         self._session.add(document)
         self._session.commit()
@@ -78,7 +78,7 @@ class DBManager(metaclass=Singleton):
     def get_doc_by_inner_num(self, inner_num: str, is_income: bool):
         results = self._session.query(Document).filter_by(
             is_income=is_income,
-            own_number=inner_num,
+            inner_number=inner_num,
         ).all()
         self.close()
         return results
