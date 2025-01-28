@@ -41,7 +41,7 @@ class FindDocWindow(tk.Toplevel):
 
         self.create_widgets()
 
-        self.bind('<Destroy>', self._kill_parent)
+        self.bind('<Escape>', self._kill_parent)
 
     def run(self):
         self.mainloop()
