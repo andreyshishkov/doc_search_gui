@@ -12,7 +12,7 @@ class Document(Base):
     date = Column(Date)
 
     sender = Column(String)
-    own_number = Column(String, nullable=True)
+    inner_number = Column(String, nullable=True)
 
     path = Column(String, unique=True)
 

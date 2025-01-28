@@ -160,7 +160,7 @@ class FindDocWindow(tk.Toplevel):
 
         for document in documents:
             doc_time = document.date.strftime('%d.%m.%Y')
-            doc_record = (document.name, doc_time, document.own_number, document.sender, document.path)
+            doc_record = (document.name, doc_time, document.inner_number, document.sender, document.path)
             self.result_tree.insert('', 'end', values=doc_record)
 
     def __get_search_results(self):
