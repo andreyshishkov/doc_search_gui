@@ -17,9 +17,10 @@ class Criteria(Enum):
 
 
 
-class FindDocWindow(tk.Tk):
+class FindDocWindow(tk.Toplevel):
 
     def __init__(self,
+                 parent,
                  width: int = 800,
                  height: int = 600,
                  window_name: str = 'Найти документ',
@@ -32,6 +33,7 @@ class FindDocWindow(tk.Tk):
         self.option_add('*Button*Font', 'Arial 15')
         self.option_add('*Radiobutton*Font', 'Arial 15')
 
+        self.parent = parent
         self.criteria = None
         self.result_tree = None
 
@@ -60,8 +62,13 @@ class FindDocWindow(tk.Tk):
         button = ttk.Button(
             self,
             text='Назад в главное меню',
+            command=self.come_back_to_start_window,
         )
         button.pack()
+
+    def come_back_to_start_window(self):
+        self.destroy()
+        self.parent.deiconify()
 
     def _create_doc_type_field(self, frame):
 

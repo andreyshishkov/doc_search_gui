@@ -1,5 +1,6 @@
 import tkinter as tk
 from .add_document_window import AddDocWindow
+from .find_document_window import FindDocWindow
 
 
 class StartWindow(tk.Tk):
@@ -48,10 +49,16 @@ class StartWindow(tk.Tk):
             width=self._buttons_width,
             height=self._buttons_height,
             font=self._buttons_font,
+            command=self._call_find_doc_window,
         )
         self._outgoing_button.pack(side=tk.RIGHT, padx=40)
 
     def _call_add_doc_window(self):
         window = AddDocWindow(self)
+        self.withdraw()
+        window.deiconify()
+
+    def _call_find_doc_window(self):
+        window = FindDocWindow(self)
         self.withdraw()
         window.deiconify()
