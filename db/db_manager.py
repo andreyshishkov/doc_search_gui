@@ -1,5 +1,5 @@
 import os
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, and_
 from sqlalchemy.orm import sessionmaker
 
 from .models import Document
@@ -58,6 +58,38 @@ class DBManager(metaclass=Singleton):
         self._session.add(document)
         self._session.commit()
         self.close()
+
+    def get_doc_by_name(self, doc_name, is_income: bool):
+        results = self._session.query(Document).filter_by(
+            is_income=is_income,
+            name=doc_name,
+        ).all()
+        self.close()
+        return results
+
+    def get_doc_by_date(self, date, is_income: bool):
+        results = self._session.query(Document).filter_by(
+            is_income=is_income,
+            date=date,
+        ).all()
+        self.close()
+        return results
+
+    def get_doc_by_inner_num(self, inner_num: str, is_income: bool):
+        results = self._session.query(Document).filter_by(
+            is_income=is_income,
+            own_number=inner_num,
+        ).all()
+        self.close()
+        return results
+
+    def get_doc_by_sender(self, sender, is_income):
+        results = self._session.query(Document).filter_by(
+            is_income=is_income,
+            sender=sender
+        ).all()
+        self.close()
+        return results
 
     def get_document_path(self, name: str, is_income: bool):
         path = self._session.query(Document.path)\
