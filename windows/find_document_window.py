@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
+from tkinter import messagebox as msgbox
 from enum import Enum
 from db.db_manager import DBManager
 from datetime import datetime
@@ -136,6 +137,13 @@ class FindDocWindow(tk.Toplevel):
         self.result_tree.delete(*self.result_tree.get_children())
 
         documents = self.__get_search_results()
+        if not documents:
+            msgbox.showinfo(
+                'Ничего не найдено',
+                'По вашему запросу ничего не найдено. Проверьте корректность введенных данных'
+            )
+            return
+
         for document in documents:
             doc_time = document.date.strftime('%d.%m.%Y')
             doc_record = (document.name, doc_time, document.own_number, document.sender, document.path)
