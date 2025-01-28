@@ -40,8 +40,14 @@ class FindDocWindow(tk.Toplevel):
 
         self.create_widgets()
 
+        self.bind('<Destroy>', self._kill_parent)
+
     def run(self):
         self.mainloop()
+
+    def _kill_parent(self, event=None):
+        if event.widget == self and self.parent.winfo_exists():
+            self.parent.destroy()
 
     def create_widgets(self):
         self.create_params_frame()
