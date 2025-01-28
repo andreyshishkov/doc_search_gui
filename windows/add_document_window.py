@@ -9,14 +9,16 @@ from tkinter import messagebox as msgbox
 from db.db_manager import DBManager
 
 
-class AddDocWindow(tk.Tk):
+class AddDocWindow(tk.Toplevel):
 
     def __init__(self,
+                 parent,
                  width: int = 600,
                  height: int = 400,
                  window_name: str = 'Добавить документ',
                  ):
         super().__init__()
+        self.parent = parent
         self.geometry(f'{width}x{height}')
         self.resizable(width=False, height=False)
         self.title(window_name)
@@ -256,7 +258,5 @@ class AddDocWindow(tk.Tk):
         button.pack()
 
     def come_back_to_start_window(self):
-        from .start_window import StartWindow
-        window = StartWindow()
         self.destroy()
-        window.run()
+        self.parent.deiconify()

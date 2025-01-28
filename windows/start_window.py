@@ -52,6 +52,6 @@ class StartWindow(tk.Tk):
         self._outgoing_button.pack(side=tk.RIGHT, padx=40)
 
     def _call_add_doc_window(self):
-        window = AddDocWindow()
-        self.destroy()
+        window = AddDocWindow(self)
+        self.withdraw()
         window.deiconify()
