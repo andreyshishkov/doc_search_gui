@@ -3,6 +3,10 @@ from tkinter import ttk
 from enum import Enum
 from db.db_manager import DBManager
 from datetime import datetime
+import pathlib
+import os
+import platform
+import subprocess
 
 
 class Criteria(Enum):
@@ -108,6 +112,8 @@ class FindDocWindow(tk.Tk):
         self.result_tree.column(3, width=120, anchor='center')
         self.result_tree.column(4, width=120, anchor='center')
 
+        self.result_tree.bind('<Double-1>', self.doubleclick_record)
+
         self.result_tree.pack(side=tk.TOP, expand='yes', fill='both')
         results_frame.pack(expand='yes', fill='both')
 
@@ -138,6 +144,19 @@ class FindDocWindow(tk.Tk):
         else:
             raise ValueError('wrong criteria')
         return results
+
+    def doubleclick_record(self, event=None):
+        id_ = self.result_tree.selection()
+        if id_:
+            self._show_selected_result(id_)
+
+    def _show_selected_result(self, id_item):
+        record = self.result_tree.item(id_item, 'values')
+        path = pathlib.Path(record[-1]).absolute()
+        if platform.system() == 'Windows':
+            os.startfile(path)
+        else:
+            subprocess.call(['xdg-open', path])
 
 
 if __name__ == '__main__':
