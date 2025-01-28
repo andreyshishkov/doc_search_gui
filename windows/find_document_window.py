@@ -45,15 +45,15 @@ class FindDocWindow(tk.Tk):
         self.create_search_results_frame()
 
     def create_params_frame(self):
-        label_frame = ttk.LabelFrame(self, text="Выберите критерий поиска и введите значение", padding=20)
+        params_frame = ttk.LabelFrame(self, text="Выберите критерий поиска и введите значение", padding=20)
 
-        self._create_criteria_field(label_frame)
-        self._create_input_criteria(label_frame)
-        self._create_doc_type_field(label_frame)
-        self._create_search_button(label_frame)
+        self._create_criteria_field(params_frame)
+        self._create_input_criteria(params_frame)
+        self._create_doc_type_field(params_frame)
+        self._create_search_button(params_frame)
 
-        label_frame.columnconfigure(1, weight=1)
-        label_frame.pack(side=tk.TOP, fill='x', pady=15)
+        params_frame.columnconfigure(1, weight=1)
+        params_frame.pack(side=tk.TOP, fill='x', pady=15)
 
     def _create_doc_type_field(self, frame):
 
