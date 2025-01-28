@@ -40,7 +40,7 @@ class AddDocWindow(tk.Toplevel):
 
         self.create_widgets()
 
-        self.bind('<Escape>', self._kill_parent)
+        self.bind('<Destroy>', self._kill_parent)
 
     def run(self):
         self.mainloop()
@@ -265,4 +265,6 @@ class AddDocWindow(tk.Toplevel):
 
     def come_back_to_start_window(self):
         self.destroy()
-        self.parent.deiconify()
+        from .start_window import StartWindow
+        window = StartWindow()
+        window.run()

@@ -41,7 +41,7 @@ class FindDocWindow(tk.Toplevel):
 
         self.create_widgets()
 
-        self.bind('<Escape>', self._kill_parent)
+        self.bind('<Destroy>', self._kill_parent)
 
     def run(self):
         self.mainloop()
@@ -76,7 +76,9 @@ class FindDocWindow(tk.Toplevel):
 
     def come_back_to_start_window(self):
         self.destroy()
-        self.parent.deiconify()
+        from .start_window import StartWindow
+        window = StartWindow()
+        window.run()
 
     def _create_doc_type_field(self, frame):
 
