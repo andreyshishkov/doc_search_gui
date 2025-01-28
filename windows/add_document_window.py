@@ -227,6 +227,8 @@ class AddDocWindow(tk.Toplevel):
             sender=sender,
             own_number=own_number,
         )
+
+        self.file_path = None
         msgbox.showinfo(
             'Операция завершена успешно',
             'Документ успешно добавлен в базу данных'
