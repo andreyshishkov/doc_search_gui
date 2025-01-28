@@ -172,8 +172,3 @@ class FindDocWindow(tk.Toplevel):
             os.startfile(path)
         else:
             subprocess.call(['xdg-open', path])
-
-
-if __name__ == '__main__':
-    window = FindDocWindow()
-    window.run()
