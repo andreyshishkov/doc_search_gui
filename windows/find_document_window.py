@@ -8,6 +8,7 @@ import pathlib
 import os
 import platform
 import subprocess
+from .exceptions import WrongDateFormatError
 
 
 class Criteria(Enum):
@@ -142,7 +143,14 @@ class FindDocWindow(tk.Toplevel):
     def _show_search_results(self):
         self.result_tree.delete(*self.result_tree.get_children())
 
-        documents = self.__get_search_results()
+        try:
+            documents = self.__get_search_results()
+        except WrongDateFormatError:
+            msgbox.showwarning(
+                'Неверный формат ввода даты',
+                'Введено некорректное значение даты, введите корректное значение. Пример: 01.01.2020'
+            )
+            return
         if not documents:
             msgbox.showinfo(
                 'Ничего не найдено',
@@ -166,7 +174,10 @@ class FindDocWindow(tk.Toplevel):
         elif criteria == Criteria.OWNER.value:
             results = db_manager.get_doc_by_sender(search_value, is_income)
         elif criteria == Criteria.DATE.value:
-            search_value = datetime.strptime(search_value, '%d.%m.%Y').date()
+            try:
+                search_value = datetime.strptime(search_value, '%d.%m.%Y').date()
+            except ValueError:
+                raise WrongDateFormatError
             results = db_manager.get_doc_by_date(search_value, is_income)
         elif criteria == Criteria.INNER_NUM.value:
             results = db_manager.get_doc_by_inner_num(search_value, is_income)
