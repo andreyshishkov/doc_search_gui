@@ -93,7 +93,7 @@ class FindDocWindow(tk.Toplevel):
             Criteria.OWNER.value,
         ]
         self.criteria = tk.StringVar(value=criteria_list[0])
-        combobox = ttk.Combobox(frame, values=criteria_list, textvariable=self.criteria)
+        combobox = ttk.Combobox(frame, state='readonly', values=criteria_list, textvariable=self.criteria)
         combobox.grid(row=0, column=1, sticky=tk.EW, padx=10)
 
     def _create_input_criteria(self, frame):
@@ -165,7 +165,7 @@ class FindDocWindow(tk.Toplevel):
         elif criteria == Criteria.INNER_NUM.value:
             results = db_manager.get_doc_by_inner_num(search_value, is_income)
         else:
-            raise ValueError('wrong criteria')
+            raise ValueError
         return results
 
     def doubleclick_record(self, event=None):
