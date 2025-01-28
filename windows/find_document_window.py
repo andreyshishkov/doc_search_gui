@@ -1,6 +1,8 @@
 import tkinter as tk
 from tkinter import ttk
 from enum import Enum
+from db.db_manager import DBManager
+from datetime import datetime
 
 
 class Criteria(Enum):
@@ -27,6 +29,7 @@ class FindDocWindow(tk.Tk):
         self.option_add('*Radiobutton*Font', 'Arial 15')
 
         self.criteria = None
+        self.result_tree = None
 
         self.create_widgets()
 
@@ -82,31 +85,60 @@ class FindDocWindow(tk.Tk):
         criteria_input.grid(row=1, column=1, sticky=tk.EW, padx=10)
 
     def _create_search_button(self, frame):
-        button = ttk.Button(frame, text='Поиск')
+        button = ttk.Button(frame, text='Поиск', command=self._show_search_results)
         button.grid(row=2, column=2)
 
     def create_search_results_frame(self):
         results_frame = ttk.LabelFrame(self, text='Результаты поиска', padding=20)
-        result_tree = ttk.Treeview(
+        self.result_tree = ttk.Treeview(
             results_frame,
             columns=(1, 2, 3, 4, 5),
             show='headings',
             height=10,
             selectmode='browse'
         )
-        result_tree.heading(1, text='Номер документа')
-        result_tree.heading(2, text='Дата')
-        result_tree.heading(3, text='Внутренний номер\nдокумента')
-        result_tree.heading(4, text='Отправитель')
-        result_tree.heading(5, text='Путь к файлу')
+        self.result_tree.heading(1, text='Номер док-та (нач.)')
+        self.result_tree.heading(2, text='Дата')
+        self.result_tree.heading(3, text='Внутренний номер')
+        self.result_tree.heading(4, text='Отправитель')
+        self.result_tree.heading(5, text='Путь к файлу')
 
-        result_tree.column(1, width=120, anchor='center')
-        result_tree.column(2, width=120, anchor='center')
-        result_tree.column(3, width=120, anchor='center')
-        result_tree.column(4, width=120, anchor='center')
+        self.result_tree.column(1, width=120, anchor='center')
+        self.result_tree.column(2, width=120, anchor='center')
+        self.result_tree.column(3, width=120, anchor='center')
+        self.result_tree.column(4, width=120, anchor='center')
 
-        result_tree.pack(side=tk.TOP, expand='yes', fill='both')
+        self.result_tree.pack(side=tk.TOP, expand='yes', fill='both')
         results_frame.pack(expand='yes', fill='both')
+
+    def _show_search_results(self):
+        self.result_tree.delete(*self.result_tree.get_children())
+
+        documents = self.__get_search_results()
+        for document in documents:
+            doc_time = document.date.strftime('%d.%m.%Y')
+            doc_record = (document.name, doc_time, document.own_number, document.sender, document.path)
+            self.result_tree.insert('', 'end', values=doc_record)
+
+    def __get_search_results(self):
+        db_manager = DBManager()
+
+        is_income = self.is_income.get()
+        search_value = self.search_value.get()
+        criteria = self.criteria.get()
+        if criteria == Criteria.DOC_NUM.value:
+            results = db_manager.get_doc_by_name(search_value, is_income)
+        elif criteria == Criteria.OWNER.value:
+            results = db_manager.get_doc_by_sender(search_value, is_income)
+        elif criteria == Criteria.DATE.value:
+            search_value = datetime.strptime(search_value, '%d.%m.%Y').date()
+            results = db_manager.get_doc_by_date(search_value, is_income)
+        elif criteria == Criteria.INNER_NUM.value:
+            results = db_manager.get_doc_by_inner_num(search_value, is_income)
+        else:
+            raise ValueError('wrong criteria')
+        return results
+
 
 if __name__ == '__main__':
     window = FindDocWindow()
