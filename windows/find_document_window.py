@@ -21,7 +21,7 @@ class FindDocWindow(tk.Tk):
 
     def __init__(self,
                  width: int = 800,
-                 height: int = 400,
+                 height: int = 600,
                  window_name: str = 'Найти документ',
                  ):
         super().__init__()
@@ -43,6 +43,7 @@ class FindDocWindow(tk.Tk):
     def create_widgets(self):
         self.create_params_frame()
         self.create_search_results_frame()
+        self._create_back_button()
 
     def create_params_frame(self):
         params_frame = ttk.LabelFrame(self, text="Выберите критерий поиска и введите значение", padding=20)
@@ -54,6 +55,13 @@ class FindDocWindow(tk.Tk):
 
         params_frame.columnconfigure(1, weight=1)
         params_frame.pack(side=tk.TOP, fill='x', pady=15)
+
+    def _create_back_button(self):
+        button = ttk.Button(
+            self,
+            text='Назад в главное меню',
+        )
+        button.pack()
 
     def _create_doc_type_field(self, frame):
 
