@@ -37,6 +37,7 @@ class AddDocWindow(tk.Toplevel):
         self._sender = None
         self._own_number = None
         self.style = ttk.Style(self)
+        self.db_manager = DBManager()
 
         self.create_widgets()
 
@@ -212,14 +213,12 @@ class AddDocWindow(tk.Toplevel):
             )
             return
 
-        db_manager = DBManager()
-
         target_path_to_save = self.get_target_filename(document_name)
         sender = self._sender.get()
         date = self._date_entry.get_date()
         own_number = self._own_number.get()
         self.copy_file(document_name)
-        db_manager.add_document(
+        self.db_manager.add_document(
             name=document_name,
             path=target_path_to_save,
             is_income=self.is_income.get(),
