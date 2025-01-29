@@ -217,7 +217,7 @@ class AddDocWindow(tk.Toplevel):
         sender = self._sender.get()
         date = self._date_entry.get_date()
         own_number = self._own_number.get()
-        self.copy_file(document_name)
+        self.copy_file(target_path_to_save)
         self.db_manager.add_document(
             name=document_name,
             path=target_path_to_save,
@@ -233,7 +233,7 @@ class AddDocWindow(tk.Toplevel):
             'Документ успешно добавлен в базу данных'
         )
 
-    def copy_file(self, document_name: str) -> None:
+    def copy_file(self, target_path_to_save) -> None:
         cur_path = os.getcwd()
         documents_path = os.path.join(cur_path, 'documents')
 
@@ -241,7 +241,6 @@ class AddDocWindow(tk.Toplevel):
             os.makedirs('documents/income')
             os.makedirs('documents/outcome')
 
-        target_path_to_save = self.get_target_filename(document_name)
         shutil.copyfile(self.file_path, target_path_to_save)
 
     def get_target_filename(self, document_name: str) -> str:
