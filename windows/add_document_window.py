@@ -1,10 +1,13 @@
 import os
 import tkinter as tk
 from tkinter import ttk
+
+from sqlalchemy.sql.functions import random
 from tkcalendar import DateEntry
 import tkinter.filedialog as fd
 import shutil
 from tkinter import messagebox as msgbox
+import uuid
 
 from db.db_manager import DBManager
 
@@ -249,8 +252,9 @@ class AddDocWindow(tk.Toplevel):
         doc_type_dir = 'income' if self.is_income else 'outcome'
         target_path_to_save = os.path.join(documents_path, doc_type_dir)
 
+        random_element = uuid.uuid4().hex[:4]
         file_ext = self.file_path.split('.')[-1]
-        file_name = document_name + '.' + file_ext
+        file_name = document_name + '_' +  random_element + '.' + file_ext
 
         target_path_to_save = os.path.join(target_path_to_save, file_name)
         return target_path_to_save
