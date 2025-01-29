@@ -222,12 +222,12 @@ class AddDocWindow(tk.Toplevel):
         own_number = self._own_number.get()
         self.copy_file(target_path_to_save)
         self.db_manager.add_document(
-            name=document_name,
+            name=document_name.lower(),
             path=target_path_to_save,
             is_income=self.is_income.get(),
             date=date,
-            sender=sender,
-            own_number=own_number,
+            sender=sender.lower(),
+            own_number=own_number.lower(),
         )
 
         self.file_path = None

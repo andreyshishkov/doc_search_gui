@@ -172,9 +172,9 @@ class FindDocWindow(tk.Toplevel):
         search_value = self.search_value.get()
         criteria = self.criteria.get()
         if criteria == Criteria.DOC_NUM.value:
-            results = db_manager.get_doc_by_name(search_value, is_income)
+            results = db_manager.get_doc_by_name(search_value.lower(), is_income)
         elif criteria == Criteria.OWNER.value:
-            results = db_manager.get_doc_by_sender(search_value, is_income)
+            results = db_manager.get_doc_by_sender(search_value.lower(), is_income)
         elif criteria == Criteria.DATE.value:
             try:
                 search_value = datetime.strptime(search_value, '%d.%m.%Y').date()
@@ -182,7 +182,7 @@ class FindDocWindow(tk.Toplevel):
                 raise WrongDateFormatError
             results = db_manager.get_doc_by_date(search_value, is_income)
         elif criteria == Criteria.INNER_NUM.value:
-            results = db_manager.get_doc_by_inner_num(search_value, is_income)
+            results = db_manager.get_doc_by_inner_num(search_value.lower(), is_income)
         else:
             raise ValueError
         return results
