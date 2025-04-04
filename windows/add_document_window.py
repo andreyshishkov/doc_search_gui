@@ -2,7 +2,6 @@ import os
 import tkinter as tk
 from tkinter import ttk
 
-from sqlalchemy.sql.functions import random
 from tkcalendar import DateEntry
 import tkinter.filedialog as fd
 import shutil
