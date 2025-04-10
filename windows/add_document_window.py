@@ -65,7 +65,7 @@ class AddDocWindow(tk.Toplevel):
         self.create_own_number_doc_field()
         self.create_signature_number_field()
         self.create_document_type_radiobuttons()
-        self.create_choose_file_button()
+        self.create_choose_file_and_add_appendix_buttons()
         self.create_add_button()
         self.create_back_button()
 
@@ -202,20 +202,36 @@ class AddDocWindow(tk.Toplevel):
         filename = fd.askopenfilename(title='Выбрать файл', filetypes=file_types)
         self.file_path = filename
 
-    def create_choose_file_button(self):
+    def create_choose_file_and_add_appendix_buttons(self):
+        frame = tk.Frame(self)
+        self.create_choose_file_button(frame)
+        self.create_add_appendix_button(frame)
+        frame.pack()
+
+    def create_choose_file_button(self, frame):
         button = tk.Button(
-            self,
-            text='Выбрать файл',
+            frame,
+            text='Выбрать документ',
             width=20,
             command=self.choose_file
         )
-        button.pack()
+        button.grid(row=0, column=0, padx=10)
+
+    def create_add_appendix_button(self, frame):
+        button = tk.Button(
+            frame,
+            text='Добавить приложение',
+            width=20
+        )
+        button.grid(row=0, column=1, padx=10)
 
     def create_add_button(self):
         button = tk.Button(
             self,
             text='Добавить',
             width=30,
+            bg='blue',
+            fg='white',
             command=self.add_document_to_db
         )
         button.pack(pady=30)
