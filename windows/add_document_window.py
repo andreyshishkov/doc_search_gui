@@ -8,6 +8,7 @@ import shutil
 from tkinter import messagebox as msgbox
 import uuid
 
+from windows.add_appendix import AddAppendixWindow
 from db.db_manager import DBManager
 
 
@@ -41,6 +42,7 @@ class AddDocWindow(tk.Toplevel):
         self._signature_number = None
         self.style = ttk.Style(self)
         self.db_manager = DBManager()
+        self.applications = []
 
         self.create_widgets()
 
@@ -221,9 +223,15 @@ class AddDocWindow(tk.Toplevel):
         button = tk.Button(
             frame,
             text='Добавить приложение',
-            width=20
+            width=20,
+            command=self._call_add_appendix_window,
         )
         button.grid(row=0, column=1, padx=10)
+
+    def _call_add_appendix_window(self):
+        appendix_window = AddAppendixWindow(self)
+        appendix_window.focus()
+        appendix_window.grab_set()
 
     def create_add_button(self):
         button = tk.Button(

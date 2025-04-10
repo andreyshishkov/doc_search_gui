@@ -2,10 +2,10 @@ import tkinter as tk
 import tkinter.filedialog as fd
 
 
-class AddAppendixWindow(tk.Tk):
+class AddAppendixWindow(tk.Toplevel):
 
     def __init__(self,
-                 parent,
+                 parent=None,
                  doc_id: str = '',
                  width: int = 550,
                  height: int = 100,
@@ -82,8 +82,3 @@ class AddAppendixWindow(tk.Tk):
             font='TimesNewRoman 12',
         )
         button.grid(row=1, column=1)
-
-
-if __name__ == '__main__':
-    window = AddAppendixWindow()
-    window.run()
