@@ -45,6 +45,7 @@ class AddDocWindow(tk.Toplevel):
         self.style = ttk.Style(self)
         self.db_manager = DBManager()
         self.applications = []
+        self.doc_id = self.generate_doc_id()
 
         self.create_widgets()
 
@@ -281,6 +282,7 @@ class AddDocWindow(tk.Toplevel):
         )
 
         self.file_path = None
+        self.doc_id = self.generate_doc_id()
         msgbox.showinfo(
             'Операция завершена успешно',
             'Документ успешно добавлен в базу данных'
