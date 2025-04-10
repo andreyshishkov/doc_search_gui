@@ -16,7 +16,7 @@ class AddDocWindow(tk.Toplevel):
     def __init__(self,
                  parent,
                  width: int = 600,
-                 height: int = 400,
+                 height: int = 500,
                  window_name: str = 'Добавить документ',
                  ):
         super().__init__()
@@ -38,6 +38,7 @@ class AddDocWindow(tk.Toplevel):
         self._date_entry = None
         self._sender = None
         self._own_number = None
+        self._signature_number = None
         self.style = ttk.Style(self)
         self.db_manager = DBManager()
 
@@ -62,6 +63,7 @@ class AddDocWindow(tk.Toplevel):
         self.create_date_field()
         self.create_sender_field()
         self.create_own_number_doc_field()
+        self.create_signature_number_field()
         self.create_document_type_radiobuttons()
         self.create_choose_file_button()
         self.create_add_button()
@@ -144,6 +146,25 @@ class AddDocWindow(tk.Toplevel):
         self._own_number.grid(row=0, column=1)
 
         frame.pack()
+
+    def create_signature_number_field(self):
+        frame = tk.Frame(self)
+
+        label = tk.Label(
+            frame,
+            anchor='w',
+            width=27,
+            text='Подписной номер:\t'
+        )
+        label.grid(row=0, column=0)
+        self._signature_number = tk.Entry(
+            frame,
+            width=20,
+            font='TimesNewRoman 15'
+        )
+        self._signature_number.grid(row=0, column=1)
+
+        frame.pack(pady=6)
 
     def create_document_type_radiobuttons(self):
         self.is_income = tk.BooleanVar()
