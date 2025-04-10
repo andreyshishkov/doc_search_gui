@@ -82,7 +82,7 @@ class DBManager(metaclass=Singleton):
     def get_doc_by_doc_number(self, doc_number: str, is_income: bool):
         results = self._session.query(Document).filter_by(
             is_income=is_income,
-            inner_number=doc_number,
+            doc_number=doc_number,
         ).all()
         self.close()
         return results
