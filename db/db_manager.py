@@ -40,20 +40,24 @@ class DBManager(metaclass=Singleton):
 
     def add_document(
             self,
+            doc_id: str,
             name: str,
             path: str,
             is_income: bool,
             date: datetime.date,
             sender: str = None,
-            own_number: str = None,
+            doc_number: str = None,
+            signature_number: str = None,
     ) -> None:
         document = Document(
-            name=name,
+            id=doc_id,
+            doc_name=name,
             is_income=is_income,
             path=path,
             sender=sender,
             date=date,
-            inner_number=own_number,
+            doc_number=doc_number,
+            signature_number=signature_number
         )
         self._session.add(document)
         self._session.commit()
@@ -62,7 +66,7 @@ class DBManager(metaclass=Singleton):
     def get_doc_by_name(self, doc_name, is_income: bool):
         results = self._session.query(Document).filter_by(
             is_income=is_income,
-            name=doc_name,
+            doc_name=doc_name,
         ).all()
         self.close()
         return results
@@ -75,10 +79,10 @@ class DBManager(metaclass=Singleton):
         self.close()
         return results
 
-    def get_doc_by_inner_num(self, inner_num: str, is_income: bool):
+    def get_doc_by_doc_number(self, doc_number: str, is_income: bool):
         results = self._session.query(Document).filter_by(
             is_income=is_income,
-            inner_number=inner_num,
+            inner_number=doc_number,
         ).all()
         self.close()
         return results
