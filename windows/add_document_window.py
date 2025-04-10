@@ -2,8 +2,6 @@ import os
 import tkinter as tk
 from tkinter import ttk
 
-import uuid
-
 from tkcalendar import DateEntry
 import tkinter.filedialog as fd
 import shutil
