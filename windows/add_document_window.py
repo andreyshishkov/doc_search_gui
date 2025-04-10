@@ -2,6 +2,8 @@ import os
 import tkinter as tk
 from tkinter import ttk
 
+import uuid
+
 from tkcalendar import DateEntry
 import tkinter.filedialog as fd
 import shutil
@@ -70,6 +72,10 @@ class AddDocWindow(tk.Toplevel):
         self.create_choose_file_and_add_appendix_buttons()
         self.create_add_button()
         self.create_back_button()
+
+    @staticmethod
+    def generate_doc_id() -> str:
+        return str(uuid.uuid4())
 
     def create_label_input_filename(self):
 
