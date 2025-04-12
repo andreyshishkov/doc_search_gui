@@ -42,7 +42,7 @@ class AddDocWindow(tk.Toplevel):
         self._signature_number = None
         self.style = ttk.Style(self)
         self.db_manager = DBManager()
-        self.applications = []
+        self.appendixes = []
         self.doc_id = self.generate_doc_id()
 
         self.create_widgets()
@@ -269,14 +269,17 @@ class AddDocWindow(tk.Toplevel):
         sender = self._sender.get()
         date = self._date_entry.get_date()
         own_number = self._own_number.get()
+        signature_number = self._signature_number.get()
         self.copy_file(target_path_to_save)
         self.db_manager.add_document(
+            doc_id=self.doc_id,
             name=document_name.lower(),
             path=target_path_to_save,
             is_income=self.is_income.get(),
             date=date,
             sender=sender.lower(),
-            own_number=own_number.lower(),
+            doc_number=own_number.lower(),
+            signature_number=signature_number.lower(),
         )
 
         self.file_path = None
