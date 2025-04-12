@@ -5,7 +5,7 @@ from .db_core import Base
 class Document(Base):
 
     __tablename__ = 'documents'
-    id = Column(Integer, primary_key=True)
+    id = Column(String, primary_key=True)
     doc_name = Column(String, index=True)
     is_income = Column(Boolean)
 
