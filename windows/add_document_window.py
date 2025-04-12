@@ -294,8 +294,9 @@ class AddDocWindow(tk.Toplevel):
         documents_path = os.path.join(cur_path, 'documents')
 
         if not os.path.exists(documents_path):
-            os.makedirs('documents/income')
-            os.makedirs('documents/outcome')
+            os.makedirs(os.path.join(documents_path, 'income'))
+            os.makedirs(os.path.join(documents_path, 'outcome'))
+            os.makedirs(os.path.join(documents_path, 'appendixes'))
 
         shutil.copyfile(self.file_path, target_path_to_save)
 
