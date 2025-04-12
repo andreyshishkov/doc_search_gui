@@ -282,7 +282,11 @@ class AddDocWindow(tk.Toplevel):
             signature_number=signature_number.lower(),
         )
 
+        for appendix in self.appendixes:
+            self.add_appendix(self.doc_id, appendix.name, appendix.file_path)
+
         self.file_path = None
+        self.appendixes = []
         self.doc_id = self.generate_doc_id()
         msgbox.showinfo(
             'Операция завершена успешно',
