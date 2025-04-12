@@ -1,12 +1,19 @@
 import tkinter as tk
 import tkinter.filedialog as fd
+from tkinter import messagebox as msgbox
+from dataclasses import dataclass
+
+
+@dataclass
+class AppendixRecord:
+    name: str
+    file_path: str
 
 
 class AddAppendixWindow(tk.Toplevel):
 
     def __init__(self,
                  parent=None,
-                 doc_id: str = '',
                  width: int = 550,
                  height: int = 100,
                  window_name: str = 'Добавить приложение к документу',
@@ -16,7 +23,7 @@ class AddAppendixWindow(tk.Toplevel):
         self.resizable(width=False, height=False)
         self.title(window_name)
 
-        self._doc_id = doc_id
+        self.parent = parent
         self._appendix_name = None
         self.default_appendix_name = None
         self.file_path = None
@@ -80,5 +87,32 @@ class AddAppendixWindow(tk.Toplevel):
             bg='blue',
             fg='white',
             font='TimesNewRoman 12',
+            command=self.add_application_to_doc,
         )
         button.grid(row=1, column=1)
+
+    def add_application_to_doc(self):
+        if not self.file_path:
+            msgbox.showwarning(
+                'Не выбрано приложение',
+                'Выберите приложение, которое хотите приложить к документу',
+            )
+            return
+        if self.default_appendix_name:
+            msgbox.showwarning(
+                'Не введено название приложения',
+                'Введите имя приложения, которое хотите добавить'
+            )
+            return
+        self.parent.appendixes.append(AppendixRecord(self._appendix_name.get(), self.file_path))
+
+        self._appendix_name.delete(0, tk.END)
+        self.focus()
+        self.default_appendix_name = True
+
+        self.file_path = None
+        msgbox.showinfo(
+            'Операция успешно завершена',
+            'Приложение успешно добавлено'
+        )
+
