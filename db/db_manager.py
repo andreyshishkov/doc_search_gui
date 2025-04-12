@@ -2,7 +2,7 @@ import os
 from sqlalchemy import create_engine, and_
 from sqlalchemy.orm import sessionmaker
 
-from .models import Document
+from .models import Document, Appendix
 from .db_core import Base
 import datetime
 
@@ -62,6 +62,15 @@ class DBManager(metaclass=Singleton):
         self._session.add(document)
         self._session.commit()
         self.close()
+
+    def add_appendix(self, doc_id, name, file_path):
+        appendix = Appendix(
+            document_id=doc_id,
+            name=name,
+            file_path=file_path,
+        )
+        self._session.add(appendix)
+        self._session.commit()
 
     def get_doc_by_name(self, doc_name, is_income: bool):
         results = self._session.query(Document).filter_by(
