@@ -19,3 +19,11 @@ class Document(Base):
 
     def __str__(self):
         return f'{self.name}; type={'income' if self.is_income else 'outcome'}'
+
+
+class Appendix(Base):
+    __tablename__ = 'appendixes'
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    document_id = Column(String, nullable=False)
+    name = Column(String)
+    file_path = Column(String)
