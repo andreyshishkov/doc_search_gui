@@ -289,6 +289,25 @@ class AddDocWindow(tk.Toplevel):
             'Документ успешно добавлен в базу данных'
         )
 
+    def add_appendix(self, doc_id: str, appendix_name: str, source_path: str) -> None:
+        target_path_to_save = self._get_target_path_to_save_appendix(appendix_name, source_path)
+        shutil.copyfile(source_path, target_path_to_save)
+        self.db_manager.add_appendix(
+            doc_id=doc_id,
+            name=appendix_name,
+            file_path=target_path_to_save,
+        )
+
+    @staticmethod
+    def _get_target_path_to_save_appendix(appendix_name: str, source_path: str) -> str:
+        cur_dir = os.getcwd()
+        target_dir = os.path.join(cur_dir, 'documents', 'appendixes')
+        file_ext = source_path.split('.')[-1]
+        random_element = uuid.uuid4().hex[:4]
+        filename = appendix_name + '_' + random_element + '.' + file_ext
+        target_path_to_save = os.path.join(target_dir, filename)
+        return target_path_to_save
+
     def copy_file(self, target_path_to_save) -> None:
         cur_path = os.getcwd()
         documents_path = os.path.join(cur_path, 'documents')
