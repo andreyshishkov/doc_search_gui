@@ -109,3 +109,8 @@ class DBManager(metaclass=Singleton):
             .filter_by(name=name, is_income=is_income).one()
         self.close()
         return path.path
+
+    def get_appendixes_by_doc_id(self, doc_id: str):
+        results = self._session.query(Appendix).filter_by(document_id=doc_id).all()
+        return results
+
