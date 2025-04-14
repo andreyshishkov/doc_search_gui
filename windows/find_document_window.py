@@ -128,16 +128,17 @@ class FindDocWindow(tk.Toplevel):
             height=10,
             selectmode='browse'
         )
-        self.result_tree.heading(1, text='Номер док-та (нач.)')
+        self.result_tree.heading(1, text='Имя документа')
         self.result_tree.heading(2, text='Дата')
-        self.result_tree.heading(3, text='Внутренний номер')
+        self.result_tree.heading(3, text='Номер')
         self.result_tree.heading(4, text='Отправитель')
-        self.result_tree.heading(5, text='Путь к файлу')
+        self.result_tree.heading(5, text='Подписной номер')
 
         self.result_tree.column(1, width=120, anchor='center')
         self.result_tree.column(2, width=120, anchor='center')
         self.result_tree.column(3, width=120, anchor='center')
         self.result_tree.column(4, width=120, anchor='center')
+        self.result_tree.column(5, width=120, anchor='center')
 
         self.result_tree.bind('<Double-1>', self.doubleclick_record)
 
@@ -164,7 +165,8 @@ class FindDocWindow(tk.Toplevel):
 
         for document in documents:
             doc_time = document.date.strftime('%d.%m.%Y')
-            doc_record = (document.doc_name, doc_time, document.doc_number, document.sender, document.path)
+            doc_record = (document.doc_name, doc_time, document.doc_number,
+                          document.sender, document.signature_number,document.path)
             self.result_tree.insert('', 'end', values=doc_record)
 
     def __get_search_results(self):
