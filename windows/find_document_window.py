@@ -144,13 +144,9 @@ class FindDocWindow(tk.Toplevel):
         self.result_tree.bind('<Double-1>', self.doubleclick_record)
 
         vsb_data_tree = ttk.Scrollbar(results_frame, orient="vertical", command=self.result_tree.yview)
-        # self.result_tree.grid(column=0, row=0, sticky='nsew', fill='both')
-        # vsb_data_tree.grid(column=1, row=0, sticky='ns')
         vsb_data_tree.pack(side=tk.RIGHT)
         self.result_tree.pack(side=tk.LEFT, expand='yes', fill='both')
 
-
-        #self.result_tree.pack(side=tk.TOP, expand='yes', fill='both')
         results_frame.pack(expand='yes', fill='both')
 
     def _show_search_results(self):
