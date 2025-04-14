@@ -39,6 +39,7 @@ class FindDocWindow(tk.Toplevel):
         self.parent = parent
         self.criteria = None
         self.result_tree = None
+        self.db_manager = DBManager()
 
         self.create_widgets()
 
@@ -169,24 +170,35 @@ class FindDocWindow(tk.Toplevel):
                           document.sender, document.signature_number,document.path)
             self.result_tree.insert('', 'end', values=doc_record)
 
-    def __get_search_results(self):
-        db_manager = DBManager()
+            appendices = self.db_manager.get_appendixes_by_doc_id(doc_id=document.id)
+            for i, appendix in enumerate(appendices, start=1):
+                appendix_path = appendix.file_path
+                appendix_record = (
+                    appendix.name,
+                    '',
+                    '',
+                    '',
+                    f'Прилож.{i} к док. {document.signature_number}',
+                    appendix_path,
+                )
+                self.result_tree.insert('', 'end', values=appendix_record)
 
+    def __get_search_results(self):
         is_income = self.is_income.get()
         search_value = self.search_value.get()
         criteria = self.criteria.get()
         if criteria == Criteria.DOC_NAME.value:
-            results = db_manager.get_doc_by_name(search_value.lower(), is_income)
+            results = self.db_manager.get_doc_by_name(search_value.lower(), is_income)
         elif criteria == Criteria.OWNER.value:
-            results = db_manager.get_doc_by_sender(search_value.lower(), is_income)
+            results = self.db_manager.get_doc_by_sender(search_value.lower(), is_income)
         elif criteria == Criteria.DATE.value:
             try:
                 search_value = datetime.strptime(search_value, '%d.%m.%Y').date()
             except ValueError:
                 raise WrongDateFormatError
-            results = db_manager.get_doc_by_date(search_value, is_income)
+            results = self.db_manager.get_doc_by_date(search_value, is_income)
         elif criteria == Criteria.DOC_NUMBER.value:
-            results = db_manager.get_doc_by_doc_number(search_value.lower(), is_income)
+            results = self.db_manager.get_doc_by_doc_number(search_value.lower(), is_income)
         elif criteria == Criteria.SIGNATURE_NUMBER.value:
             pass
         else:
