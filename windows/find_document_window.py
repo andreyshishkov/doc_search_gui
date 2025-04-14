@@ -12,10 +12,11 @@ from .exceptions import WrongDateFormatError
 
 
 class Criteria(Enum):
-    DOC_NUM = 'За каким номер пришел документ'
-    INNER_NUM = 'Внутренний номер документа'
+    DOC_NAME = 'Название документа'
+    DOC_NUMBER = 'Собственный номер документа'
     OWNER = 'От кого пришел документ'
     DATE = 'Дата (день.месяц.год)'
+    SIGNATURE_NUMBER = 'Подписной номер документа'
 
 
 
@@ -96,10 +97,11 @@ class FindDocWindow(tk.Toplevel):
         criteria_label.grid(row=0, column=0)
 
         criteria_list = [
-            Criteria.DOC_NUM.value,
-            Criteria.INNER_NUM.value,
+            Criteria.DOC_NAME.value,
+            Criteria.DOC_NUMBER.value,
             Criteria.DATE.value,
             Criteria.OWNER.value,
+            Criteria.SIGNATURE_NUMBER.value,
         ]
         self.criteria = tk.StringVar(value=criteria_list[0])
         combobox = ttk.Combobox(frame, state='readonly', values=criteria_list, textvariable=self.criteria)
@@ -162,7 +164,7 @@ class FindDocWindow(tk.Toplevel):
 
         for document in documents:
             doc_time = document.date.strftime('%d.%m.%Y')
-            doc_record = (document.name, doc_time, document.inner_number, document.sender, document.path)
+            doc_record = (document.doc_name, doc_time, document.doc_number, document.sender, document.path)
             self.result_tree.insert('', 'end', values=doc_record)
 
     def __get_search_results(self):
@@ -171,7 +173,7 @@ class FindDocWindow(tk.Toplevel):
         is_income = self.is_income.get()
         search_value = self.search_value.get()
         criteria = self.criteria.get()
-        if criteria == Criteria.DOC_NUM.value:
+        if criteria == Criteria.DOC_NAME.value:
             results = db_manager.get_doc_by_name(search_value.lower(), is_income)
         elif criteria == Criteria.OWNER.value:
             results = db_manager.get_doc_by_sender(search_value.lower(), is_income)
@@ -181,8 +183,10 @@ class FindDocWindow(tk.Toplevel):
             except ValueError:
                 raise WrongDateFormatError
             results = db_manager.get_doc_by_date(search_value, is_income)
-        elif criteria == Criteria.INNER_NUM.value:
-            results = db_manager.get_doc_by_inner_num(search_value.lower(), is_income)
+        elif criteria == Criteria.DOC_NUMBER.value:
+            results = db_manager.get_doc_by_doc_number(search_value.lower(), is_income)
+        elif criteria == Criteria.SIGNATURE_NUMBER.value:
+            pass
         else:
             raise ValueError
         return results
