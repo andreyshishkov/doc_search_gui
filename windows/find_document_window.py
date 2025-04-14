@@ -135,15 +135,22 @@ class FindDocWindow(tk.Toplevel):
         self.result_tree.heading(4, text='Отправитель')
         self.result_tree.heading(5, text='Подписной номер')
 
-        self.result_tree.column(1, width=120, anchor='center')
-        self.result_tree.column(2, width=120, anchor='center')
-        self.result_tree.column(3, width=120, anchor='center')
-        self.result_tree.column(4, width=120, anchor='center')
-        self.result_tree.column(5, width=120, anchor='center')
+        self.result_tree.column(1, width=150, anchor='center')
+        self.result_tree.column(2, width=150, anchor='center')
+        self.result_tree.column(3, width=150, anchor='center')
+        self.result_tree.column(4, width=150, anchor='center')
+        self.result_tree.column(5, width=150, anchor='center')
 
         self.result_tree.bind('<Double-1>', self.doubleclick_record)
 
-        self.result_tree.pack(side=tk.TOP, expand='yes', fill='both')
+        vsb_data_tree = ttk.Scrollbar(results_frame, orient="vertical", command=self.result_tree.yview)
+        # self.result_tree.grid(column=0, row=0, sticky='nsew', fill='both')
+        # vsb_data_tree.grid(column=1, row=0, sticky='ns')
+        vsb_data_tree.pack(side=tk.RIGHT)
+        self.result_tree.pack(side=tk.LEFT, expand='yes', fill='both')
+
+
+        #self.result_tree.pack(side=tk.TOP, expand='yes', fill='both')
         results_frame.pack(expand='yes', fill='both')
 
     def _show_search_results(self):
