@@ -200,7 +200,7 @@ class FindDocWindow(tk.Toplevel):
         elif criteria == Criteria.DOC_NUMBER.value:
             results = self.db_manager.get_doc_by_doc_number(search_value.lower(), is_income)
         elif criteria == Criteria.SIGNATURE_NUMBER.value:
-            pass
+            results = self.db_manager.get_document_by_signature_number(search_value.lower())
         else:
             raise ValueError
         return results
