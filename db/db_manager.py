@@ -112,5 +112,6 @@ class DBManager(metaclass=Singleton):
 
     def get_appendixes_by_doc_id(self, doc_id: str):
         results = self._session.query(Appendix).filter_by(document_id=doc_id).all()
+        self.close()
         return results
 
