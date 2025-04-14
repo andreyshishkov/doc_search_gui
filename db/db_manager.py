@@ -110,6 +110,13 @@ class DBManager(metaclass=Singleton):
         self.close()
         return path.path
 
+    def get_document_by_signature_number(self, signature_number: str):
+        results = self._session.query(Document).filter_by(
+            signature_number=signature_number,
+        ).all()
+        self.close()
+        return results
+
     def get_appendixes_by_doc_id(self, doc_id: str):
         results = self._session.query(Appendix).filter_by(document_id=doc_id).all()
         self.close()
